@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This Video has 0 Views</title>
+</head>
+<body>
+    <h1>Live YouTube View Count</h1>
+    <p id="viewCount">This Video has 0 Views</p>
+
+    <script>
+        async function updateViewCount() {
+            try {
+                const response = await fetch('http://localhost:3000/views');
+                const data = await response.json();
+                const viewCount = data.views || 0;
+                
+                document.title = `This Video has ${viewCount} Views`;
+                document.getElementById('viewCount').innerText = `This Video has ${viewCount} Views`;
+            } catch (error) {
+                console.error('Failed to fetch view count:', error);
+            }
+        }
+
+        updateViewCount();
+        setInterval(updateViewCount, 20000);
+    </script>
+</body>
+</html>
